@@ -21,8 +21,8 @@ class Book{
   //Precondition: None
   //Postcondition: Sets and Gets private member variables
   int GetYear(); //return year
-  string GetTitle(); // return title
-  string GetAuthor(); // return author(s)
+  string GetTitle();// return title
+  string GetAuthor();  // return author(s)
   double GetScore(); // return rating score
   void SetYear(int year); //sets year
   void SetTitle(string title); //sets title
