@@ -4,7 +4,7 @@
 #include "Book.h"
 
 using namespace std;
-#ifndef LIBRARY_H
+#ifndef LIBRARY_H //Header Guards
 #define LIBRARY_H
 
 //Constants
@@ -23,6 +23,9 @@ class Library{
   //Precondition: None
   //Postcondition: Creates a new Library and passes the book filename
   Library(string filename);
+
+  // FUNCTIONS
+
   //Name: LoadCatalog(string filename)
   //Precondition: Requires filename
   //Postcondition: Loads the file into the m_bookCatalog (as books)
