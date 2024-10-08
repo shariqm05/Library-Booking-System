@@ -132,3 +132,11 @@ bool Library::BookExist(Book book){
     }
     return false;
   }
+
+void Library::DisplayWaitList(){
+    cout << "**Current WAitlist**" << endl;
+    for (int i = 0; i < m_waitCount ; i++){
+      cout << i+1 <<". ";
+      m_waitList[i].DisplayBook();
+    }
+  }

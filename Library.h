@@ -66,7 +66,13 @@ class Library{
   //Name: DisplayWaitList
   //Precondition: m_bookCatalog is populated
   //Postcondition: Displays the WaitList using DisplayBook
-  void DisplayWaitList();
+  void DisplayWaitList(){
+    cout << "**Current WAitlist**" << endl;
+    for (int i = 0; i < m_waitCount ; i++){
+      cout << i+1 <<". ";
+      m_waitList[i].DisplayBook();
+    }
+  }
 private:
   Book m_bookCatalog [NUM_BOOKS]; //Holds all books in file
   Book m_waitList [MAX_WAIT]; //Holds all books in wait list
