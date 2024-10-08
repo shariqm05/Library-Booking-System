@@ -10,8 +10,11 @@
     void Book::SetAuthor(string author) {m_author = author;} //sets author(s)
     void Book::SetScore(double score) {m_score = score;} //sets score
 
-//DisplayBook()
-    void Book::DisplayBook(){
+//Name: DisplayBook
+//Precondition: Requires book variables to be populated
+//Postcondition: None
+//Desc: Displays the information about the book
+    void Book::DisplayBook(){  // uses the getters to print the statement
         cout << GetTitle() << " (" << GetYear() << ") by " << GetAuthor() << " with a score of " << GetScore() << endl;
     }
 
