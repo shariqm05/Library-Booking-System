@@ -2,7 +2,7 @@
 
 //Name: LoadCatalog(string filename)
 //Precondition: Requires filename
-//Postcondition: Loads the file into the m_bookCatalog (as books)
+//endPostcondition: Loads the file into the m_bookCatalog (as books)
 //Note: You are permitted to use stoi (string to integer) and stod
 // (string to double) to convert during loading of catalog
 void Library::LoadCatalog(string filename){
@@ -20,29 +20,31 @@ void Library::LoadCatalog(string filename){
           string author; //Author
           double score; //Score
           string strYear, strScore; //convert these to int and double using stoi and stod
-          int pos; //int to track position while reading in the line
+
+          int endPos; //int to track end Position of substring while reading in the line
+          int startPos = 0; //int to track start Position of substring while reading in the line
 
           // for finding an intialzing the year. Coverted to int using stoi
-          pos = line.find(DELIMETER);
-          year = stoi(line.substr(0,pos));
-          line.erase(0,pos+1); //erase that part of the line
+          endPos = line.find(DELIMETER, startPos);
+          year = stoi(line.substr(startPos,endPos-startPos));
+          startPos = endPos + 1; //reset startPos for extractin next variable
           
           // for title
-          pos = line.find(DELIMETER);
-          title = line.substr(0,pos);
-          line.erase(0,pos+1); //erase that part of the line
+          endPos = line.find(DELIMETER, startPos);
+          title = line.substr(startPos,endPos-startPos);
+          startPos = endPos + 1; //reset startPos for extractin next variable
           
           // for author
-          pos = line.find(DELIMETER);
-          author = line.substr(0,pos);
-          line.erase(0,pos+1); //erase that part of the line
+          endPos = line.find(DELIMETER, startPos);
+          author = line.substr(startPos,endPos-startPos);
+          startPos = endPos + 1; //reset startPos for extractin next variable
           
           //for score: used stod to convert to souble
-          score = stod(line);
+          score = stod(line.substr(startPos));
 
           //now take the extracted vars and make a Book object with it
           Book aBook(year, title, author, score);
-          //put it int the book catalog array
+          //put it in the book catalog array
           m_bookCatalog[i] = aBook;
           i++;
         }
@@ -56,7 +58,7 @@ void Library::LoadCatalog(string filename){
 
 //Name: MainMenu
 //Precondition: None
-//Postcondition: Manages the application and the menu
+//endPostcondition: Manages the application and the menu
 void Library::MainMenu(){
   bool isRunning = true; // var for keeping the program running
   do{ 
@@ -95,7 +97,7 @@ void Library::MainMenu(){
 
 //Name: AddBook
 //Precondition: m_bookCatalog is populated
-//Postcondition: Displays the current list and copies a book to m_waitList
+//endPostcondition: Displays the current list and copies a book to m_waitList
 //               Increments m_waitCount and limits capacity to MAX_WAIT
 void Library::AddBook(){
     //if waitlist is already full
@@ -135,7 +137,7 @@ void Library::AddBook(){
 
 //Name: BookExist(Book)
 //Precondition: m_bookCatalog is populated
-//Postcondition: Helper function to check if passed book exists in m_waitList. Returns true if exists in m_waitList else false
+//endPostcondition: Helper function to check if passed book exists in m_waitList. Returns true if exists in m_waitList else false
 bool Library::BookExist(Book book){
     for (int i = 0; i < m_waitCount; i++){
       if (m_waitList[i].GetTitle() == book.GetTitle()) //if the title of the book from the wailist to the catalog its already in the wailist.
@@ -146,7 +148,7 @@ bool Library::BookExist(Book book){
 
 //Name: DisplayWaitList
 //Precondition: m_bookCatalog is populated
-//Postcondition: Displays the WaitList using DisplayBook
+//endPostcondition: Displays the WaitList using DisplayBook
 void Library::DisplayWaitList(){
     cout << "**Current Waitlist**" << endl;
     for (int i = 0; i < m_waitCount ; i++){
