@@ -2,7 +2,7 @@
 
 //Name: LoadCatalog(string filename)
 //Precondition: Requires filename
-//endPostcondition: Loads the file into the m_bookCatalog (as books)
+//Postcondition: Loads the file into the m_bookCatalog (as books)
 //Note: You are permitted to use stoi (string to integer) and stod
 // (string to double) to convert during loading of catalog
 void Library::LoadCatalog(string filename){
@@ -58,7 +58,7 @@ void Library::LoadCatalog(string filename){
 
 //Name: MainMenu
 //Precondition: None
-//endPostcondition: Manages the application and the menu
+//Postcondition: Manages the application and the menu
 void Library::MainMenu(){
   bool isRunning = true; // var for keeping the program running
   do{ 
@@ -97,7 +97,7 @@ void Library::MainMenu(){
 
 //Name: AddBook
 //Precondition: m_bookCatalog is populated
-//endPostcondition: Displays the current list and copies a book to m_waitList
+//Postcondition: Displays the current list and copies a book to m_waitList
 //               Increments m_waitCount and limits capacity to MAX_WAIT
 void Library::AddBook(){
     //if waitlist is already full
@@ -137,7 +137,7 @@ void Library::AddBook(){
 
 //Name: BookExist(Book)
 //Precondition: m_bookCatalog is populated
-//endPostcondition: Helper function to check if passed book exists in m_waitList. Returns true if exists in m_waitList else false
+//Postcondition: Helper function to check if passed book exists in m_waitList. Returns true if exists in m_waitList else false
 bool Library::BookExist(Book book){
     for (int i = 0; i < m_waitCount; i++){
       if (m_waitList[i].GetTitle() == book.GetTitle()) //if the title of the book from the wailist to the catalog its already in the wailist.
@@ -148,7 +148,7 @@ bool Library::BookExist(Book book){
 
 //Name: DisplayWaitList
 //Precondition: m_bookCatalog is populated
-//endPostcondition: Displays the WaitList using DisplayBook
+//Postcondition: Displays the WaitList using DisplayBook
 void Library::DisplayWaitList(){
     cout << "**Current Waitlist**" << endl;
     for (int i = 0; i < m_waitCount ; i++){
