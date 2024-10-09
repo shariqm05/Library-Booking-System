@@ -134,6 +134,26 @@ void Library::MainMenu(){
     }
   }
 
+//Name: SearchCatalog()
+  //Precondition: Requires m_bookCatalog
+  //Postcondition: Searches m_bookCatalog by title
+  //Note: Use string function of .find to search for any part of string
+  void Library::SearchCatalog(){
+    string input;
+    cout << "What title would you like to search for?" << endl;
+    getline(cin, input);
+    for (int i = 0; i < NUM_BOOKS; i++){
+      //checks if the term exists in the the title by seeing if find() will return anything between 0-256.
+      //Its just a random range assigned since find() always returns the index of the found sub-string. 
+      if (m_bookCatalog[i].GetTitle().find(input) >= 0 && m_bookCatalog[i].GetTitle().find(input) < 256){ 
+        cout << i+1 << ". ";
+        m_bookCatalog[i].DisplayBook();
+      }
+      else
+        cout << "No books woht that title found." << endl;
+    }
+  }
+
 //Name: AddBook
 //Precondition: m_bookCatalog is populated
 //Postcondition: Displays the current list and copies a book to m_waitList
