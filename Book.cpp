@@ -1,4 +1,14 @@
 #include "Book.h"
+//CONSTRUCTOR 
+//Default
+Book::Book(){}
+//Overloaded
+Book::Book(int year, string title, string author, double score){
+  m_year = year;
+  m_title = title;
+  m_author = author;
+  m_score = score;
+}
 
 //GETTERS AND SETTERS
     int Book::GetYear() {return m_year;} //return year

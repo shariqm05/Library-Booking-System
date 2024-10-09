@@ -1,5 +1,13 @@
 #include "Library.h"
 
+//Constructor Definitions
+//Default
+Library::Library(){}
+//overloaded
+Library::Library(string filename){
+  LoadCatalog(filename);
+}
+
 //Name: LoadCatalog(string filename)
 //Precondition: Requires filename
 //Postcondition: Loads the file into the m_bookCatalog (as books)
@@ -72,6 +80,7 @@ void Library::MainMenu(){
     cout << "4. Display Waitlist" << endl;
     cout << "5. Quit" << endl;
     cin >> command;
+    cin.ignore(); //ignores potential newline charaters
 
     //for handling input
     switch(command){
@@ -138,21 +147,27 @@ void Library::MainMenu(){
   //Precondition: Requires m_bookCatalog
   //Postcondition: Searches m_bookCatalog by title
   //Note: Use string function of .find to search for any part of string
-  void Library::SearchCatalog(){
+void Library::SearchCatalog(){
     string input;
     cout << "What title would you like to search for?" << endl;
+    cin.ignore(); //clear any possible newline characters
     getline(cin, input);
+
+    bool found = false; //flag
+
     for (int i = 0; i < NUM_BOOKS; i++){
       //checks if the term exists in the the title by seeing if find() will return anything between 0-256.
       //Its just a random range assigned since find() always returns the index of the found sub-string. 
       if (m_bookCatalog[i].GetTitle().find(input) >= 0 && m_bookCatalog[i].GetTitle().find(input) < 256){ 
-        cout << i+1 << ". ";
+        cout << "\t" << i+1 << ". ";
         m_bookCatalog[i].DisplayBook();
+        found = true; //set the flag to true
       }
-      else
-        cout << "No books woht that title found." << endl;
     }
+  if (found == false) //if the title was never found in the catalog
+        cout << "No books with that title found." << endl;
   }
+  
 
 //Name: AddBook
 //Precondition: m_bookCatalog is populated
