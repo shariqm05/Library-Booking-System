@@ -116,7 +116,7 @@ void Library::MainMenu(){
     
     while (isRunning){
       for (int i = spacer; i < spacer + INCR && i < NUM_BOOKS; i++){
-        cout << i+1 << ". "; //displays book number in the catalog
+        cout << "\t" << i+1 << ". "; //displays book number in the catalog
         m_bookCatalog[i].DisplayBook(); 
       }
       //prompt
@@ -158,7 +158,7 @@ void Library::SearchCatalog(){
     for (int i = 0; i < NUM_BOOKS; i++){
       //checks if the term exists in the the title by seeing if find() will return anything between 0-256.
       //Its just a random range assigned since find() always returns the index of the found sub-string. 
-      if (m_bookCatalog[i].GetTitle().find(input) >= 0 && m_bookCatalog[i].GetTitle().find(input) < 256){ 
+      if (m_bookCatalog[i].GetTitle().find(input) < 256){ 
         cout << "\t" << i+1 << ". ";
         m_bookCatalog[i].DisplayBook();
         found = true; //set the flag to true
