@@ -95,6 +95,45 @@ void Library::MainMenu(){
   } while (isRunning); 
 }
 
+//Name: DisplayBooks
+  //Precondition: Displays the master list of all books in catalog
+  //Postcondition: Lists all books (numbered starting at 1)
+  //Note: Displays 10 books per screen using constant INCR
+  //If the user enters Q or q, the program stops displaying
+  //  books and returns to main menu else displays next 10 books
+  void Library::DisplayBooks(){
+    int spacer = 0; // for incrementing the bounds of books to be displayed
+    bool isRunning = true; //var to keep the list displayed until user quits
+    
+    while (isRunning){
+      for (int i = spacer; i < spacer + INCR && i < NUM_BOOKS; i++){
+        cout << i+1 << ". "; //displays book number in the catalog
+        m_bookCatalog[i].DisplayBook(); 
+      }
+      //prompt
+      cout << "N for next, Q to quit" << endl;
+      char command;
+      cin >> command;
+      
+      //input val
+      while (command != 'N' && command != 'n' && command != 'Q' && command != 'q'){
+        cout << "Invalid input" << endl;
+        cout << "N for next, Q to quit" << endl;
+        cin >> command;
+      }
+      //for advancing list
+      if (command == 'N' || command == 'n'){
+        spacer += INCR; //increment the bounds 
+        if (spacer >= NUM_BOOKS)
+          isRunning = false; //ends function if all books are already displayed
+        }
+
+      else{  //only remaining poosible input after input val and N/n is Q/q
+        isRunning = false; //ends function
+      }
+    }
+  }
+
 //Name: AddBook
 //Precondition: m_bookCatalog is populated
 //Postcondition: Displays the current list and copies a book to m_waitList
