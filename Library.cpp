@@ -15,54 +15,67 @@ Library::Library(string filename){
 // (string to double) to convert during loading of catalog
 void Library::LoadCatalog(string filename){
 
-    ifstream file(filename);
+  ifstream file(filename);
+  string line; //represents a a single line, for a single book's info
+  int i = 0;
 
-    string line; //represents a a single line, for a single book's info
-    int i = 0;
-    //opening and processing book into m_bookCatalog
-    if (file.is_open()){
-        while(getline(file, line) && i < NUM_BOOKS){
-          //variabels for a single book
-          int year; //Year
-          string title; //Title
-          string author; //Author
-          double score; //Score
-          string strYear, strScore; //convert these to int and double using stoi and stod
+  //opening and processing book into m_bookCatalog
+  if (file.is_open()){
+    while(getline(file, line) && i < NUM_BOOKS){
+      //variabels for a single book
+      int year; //Year
+      string title; //Title
+      string author; //Author
+      double score; //Score
 
-          int endPos; //int to track end Position of substring while reading in the line
-          int startPos = 0; //int to track start Position of substring while reading in the line
+      string extractorString = ""; //an empty string which we'll load characters to extract variables
+      int j = 0; //for string position
 
-          // for finding an intialzing the year. Coverted to int using stoi
-          endPos = line.find(DELIMETER, startPos);
-          year = stoi(line.substr(startPos,endPos-startPos));
-          startPos = endPos + 1; //reset startPos for extractin next variable
+      //year
+      while(j < line.length() && line.at(j) != DELIMETER){
+        extractorString = extractorString + line.at(j); //add character to the string holder
+        j++; //move index down one
+      }
+      j++; //one more increment to move past the delimiter.
+      year = stoi(extractorString); //stoi to conver to int
+      extractorString = ""; //clear the string for next variable
+        
+      //title
+      while(j < line.length() && line.at(j) != DELIMETER){
+        extractorString = extractorString + line.at(j); //add character to the string holder
+        j++; //move index down one
+      }
+      j++; //one more increment to move past the delimiter.
+      title = extractorString;
+      extractorString = ""; //clear the string for next variable
           
-          // for title
-          endPos = line.find(DELIMETER, startPos);
-          title = line.substr(startPos,endPos-startPos);
-          startPos = endPos + 1; //reset startPos for extractin next variable
+      //author
+      while(j < line.length() && line.at(j) != DELIMETER){
+        extractorString = extractorString + line.at(j); //add character to the string holder
+        j++; //move index down one
+      }
+      j++; //one more increment to move past the delimiter.
+      author = extractorString;
+      extractorString = ""; //clear the string for next variable
           
-          // for author
-          endPos = line.find(DELIMETER, startPos);
-          author = line.substr(startPos,endPos-startPos);
-          startPos = endPos + 1; //reset startPos for extractin next variable
-          
-          //for score: used stod to convert to souble
-          score = stod(line.substr(startPos));
+      //score
+      while(j < line.length() && line.at(j) != DELIMETER){
+        extractorString = extractorString + line.at(j); //add character to the string holder
+        j++; //move index down one
+      }
+      score = stod(extractorString); //stod to conver to double
 
-          //now take the extracted vars and make a Book object with it
-          Book aBook(year, title, author, score);
-          //put it in the book catalog array
-          m_bookCatalog[i] = aBook;
-          i++;
-        }
-        cout << "Catalog populated with " << i << " books." << endl;
+      //make a book with extracted variables
+      Book aBook(year,title,author,score);
+      //put it in the catalog
+      m_bookCatalog[i] = aBook;
+
+      i++; //move down the next spot in the catalog
     }
-    else{ //input val (technically it should always load the same file every time, but just in case)
-      cout << "File Does not exist" << endl;
-    }
-    file.close();
   }
+  cout << "Catalog populated with " << i << " books." << endl;
+  file.close();
+}
 
 //Name: MainMenu
 //Precondition: None
